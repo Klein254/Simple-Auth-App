@@ -1,6 +1,7 @@
 package com.example.authregobiero
 
 import android.content.Context
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var edtEmail:EditText
     lateinit var edtPassword:EditText
     lateinit var btnRegister:Button
+    lateinit var btnLogin:Button
     lateinit var db:SQLiteDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         edtEmail = findViewById(R.id.edtEmail)
         edtPassword = findViewById(R.id.edtPassword)
         btnRegister = findViewById(R.id.btnRegister)
+        btnLogin = findViewById(R.id.btnLogin)
 
         db = openOrCreateDatabase("ObieroDB", Context.MODE_PRIVATE, null)
 
@@ -45,9 +48,15 @@ class MainActivity : AppCompatActivity() {
                 db.execSQL("INSERT INTO users VALUES('\"+FirstName_edt+\"', '\"+SecondName_edt+\"', '\"+Email_edt+\"', '\"+Password_edt+\"')")
 
                 Toast.makeText(this, "User Created Successfully", Toast.LENGTH_SHORT).show()
+
+                val open_LOGIN = Intent(this, LoginActivity::class.java)
+                startActivity(open_LOGIN)
             }
+        }
 
-
+        btnLogin.setOnClickListener {
+            val open_LOGIN = Intent(this, LoginActivity::class.java)
+            startActivity(open_LOGIN)
         }
     }
 }
